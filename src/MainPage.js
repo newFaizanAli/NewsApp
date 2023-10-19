@@ -29,9 +29,9 @@ function MainPage() {
   
   //Fetching Data 
 
-  let FetchResult = (pageNum) => {
+  let FetchResult = async(pageNum) => {
     setPageVal(pageNum)
-    let item = Promise.resolve(fetchData(
+    let item = await Promise.resolve(fetchData(
       `https://newsapi.org/v2/top-headlines?country=us&category=${
         !categ ? "general" : categ
       }&country=${
