@@ -38,7 +38,9 @@ function MainPage() {
         !categ ? "general" : categ
       }&country=${
         !cn ? "us" : cn
-      }&apiKey=${process.env.REACT_APP_NEWS_KEY}&page=${pageNum}&pageSize=10`
+      }&apiKey=785cee2adf2b475a9a7167de3a2372a0&page=${pageNum}&pageSize=10`
+      
+      // ${process.env.REACT_APP_NEWS_KEY}
     );
     
     if (response.ok) {
