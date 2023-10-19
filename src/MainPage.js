@@ -29,22 +29,31 @@ function MainPage() {
   
   //Fetching Data 
 
-  let FetchResult = async(pageNum) => {
-    setPageVal(pageNum)
-    let item = Promise.resolve(fetchData(
+  let FetchResult = async (pageNum) => {
+  setPageVal(pageNum);
+  try {
+    // Fetch data using the fetch function
+    const response = await fetch(
       `https://newsapi.org/v2/top-headlines?country=us&category=${
         !categ ? "general" : categ
       }&country=${
-        !cn  ? "us" : cn
+        !cn ? "us" : cn
       }&apiKey=${process.env.REACT_APP_NEWS_KEY}&page=${pageNum}&pageSize=10`
-    ), loadBar.current.continuousStart());
-    item.then((res) => {
-      setLoading(false)
+    );
+    
+    if (response.ok) {
+      const res = await response.json();
+      setLoading(false);
       setData(res.articles);
-      loadBar.current.complete()
+      loadBar.current.complete();
       setTotalPages(res.totalResults);
-    }).catch(error => console.error(error));
-  };
+    } else {
+      throw new Error('Network response was not ok');
+    }
+  } catch (error) {
+    console.error(error);
+  }
+};
 
   let Tasks = (val, action) => {
     switch (action) {
